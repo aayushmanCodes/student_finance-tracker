@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+@import "tailwindcss";
+
+/* 1. Tell Tailwind v4 to listen for manual '.dark' class toggles instead of OS system preference */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 2. Map theme variables to custom utility properties directly inside the CSS engine */
+@theme {
+  --color-appBg: var(--bg-app);
+  --color-surface: var(--bg-surface);
+  --color-textMain: var(--text-primary);
+  --color-textMuted: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-alert: var(--alert);
+
+  --font-mono: "Space Grotesk", monospace;
+  --font-sans: Inter, sans-serif;
+}
+
+/* 3. Base Custom Properties for Theme Switching */
+:root {
+  /* LIGHT MODE: Matcha & Oat Theme */
+  --bg-app: #F7F5F0;
+  --bg-surface: #FFFFFF;
+  --text-primary: #3D3833;
+  --text-secondary: #8C857B;
+  --accent: #D4A373;
+  --success: #84A59D;
+  --alert: #E5989B;
+}
+
+.dark {
+  /* DARK MODE: Midnight Arcade Theme */
+  --bg-app: #0F111A;
+  --bg-surface: #1A1D27;
+  --text-primary: #E2E8F0;
+  --text-secondary: #94A3B8;
+  --accent: #8B5CF6;
+  --success: #00E676;
+  --alert: #FF2A6D;
+}
+
+/* 4. Application Defaults and Global Rules */
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 5. Pure CSS Interactive Juice (Modern Minimalism) */
+.glass-card {
+  background-color: var(--bg-surface);
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Smooth contextual changes when inside the .dark container */
+.dark .glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dark .glass-card:hover {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.12);
+}
