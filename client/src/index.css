@@ -1,73 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
 @import "tailwindcss";
 
-/* 1. Tell Tailwind v4 to listen for manual '.dark' class toggles instead of OS system preference */
-@custom-variant dark (&:where(.dark, .dark *));
-
-/* 2. Map theme variables to custom utility properties directly inside the CSS engine */
-@theme {
-  --color-appBg: var(--bg-app);
-  --color-surface: var(--bg-surface);
-  --color-textMain: var(--text-primary);
-  --color-textMuted: var(--text-secondary);
-  --color-accent: var(--accent);
-  --color-success: var(--success);
-  --color-alert: var(--alert);
-
-  --font-mono: "Space Grotesk", monospace;
-  --font-sans: Inter, sans-serif;
-}
-
-/* 3. Base Custom Properties for Theme Switching */
 :root {
-  /* LIGHT MODE: Matcha & Oat Theme */
-  --bg-app: #F7F5F0;
-  --bg-surface: #FFFFFF;
-  --text-primary: #3D3833;
-  --text-secondary: #8C857B;
-  --accent: #D4A373;
-  --success: #84A59D;
-  --alert: #E5989B;
-}
-
-.dark {
-  /* DARK MODE: Midnight Arcade Theme */
-  --bg-app: #0F111A;
-  --bg-surface: #1A1D27;
-  --text-primary: #E2E8F0;
-  --text-secondary: #94A3B8;
+  --bg: #0F111A;
+  --surface: #1A1D27;
+  --text: #E2E8F0;
+  --muted: #94A3B8;
   --accent: #8B5CF6;
-  --success: #00E676;
-  --alert: #FF2A6D;
+  --accent-hover: #7C3AED;
+  --income: #00E676;
+  --expense: #FF2A6D;
+  --border-color: rgba(139, 92, 246, 0.15);
+  --shadow: 0 4px 20px rgba(139, 92, 246, 0.08);
+  --glow: 0 0 20px rgba(139, 92, 246, 0.25);
 }
 
-/* 4. Application Defaults and Global Rules */
+@theme {
+  /* This automatically maps to Tailwind classes like bg-ft-bg, text-ft-text */
+  --color-ft-bg: var(--bg);
+  --color-ft-card: var(--surface);
+  --color-ft-text: var(--text);
+  --color-ft-muted: var(--muted);
+  --color-ft-accent: var(--accent);
+  --color-ft-income: var(--income);
+  --color-ft-expense: var(--expense);
+  --color-ft-border: var(--border-color);
+
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+
+  /* Custom Animations */
+  --animate-slide-up: slideUp 0.4s ease forwards;
+  --animate-shake: shake 0.4s ease;
+  --animate-jitter: jitter 0.15s ease-in-out infinite;
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+  @keyframes jitter {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-2px); }
+    75% { transform: translateY(2px); }
+  }
+}
+
+* { box-sizing: border-box; }
+
 body {
-  background-color: var(--bg-app);
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--text);
   font-family: var(--font-sans);
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
 }
 
-/* 5. Pure CSS Interactive Juice (Modern Minimalism) */
-.glass-card {
-  background-color: var(--bg-surface);
-  border-radius: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease;
-}
+/* Reusable Micro-Interactions */
+.btn-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.btn-lift:hover { transform: translateY(-2px); box-shadow: var(--glow), var(--shadow); }
+.btn-lift:active { transform: translateY(0); }
 
-.glass-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
-}
-
-/* Smooth contextual changes when inside the .dark container */
-.dark .glass-card {
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.dark .glass-card:hover {
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.12);
-}
+.card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card-lift:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(139, 92, 246, 0.12); }
