@@ -11,6 +11,7 @@ app.use(express.json());
 app.use('/api/users',        require('./routes/userRoutes'));
 app.use('/api/transactions', require('./routes/transactionRoutes'));
 app.use('/api/goals',        require('./routes/goalRoutes'));
+app.use('/api/wishlist', require('./routes/wishlistRoutes'));
 
 // Error handling (must be last)
 app.use(notFound);

@@ -6,14 +6,11 @@ const transactionSchema = new mongoose.Schema({
   amount:   { type: Number, required: true },
   category: { 
     type: String, 
-    required: true,
-    enum: [
-      'Food & Dining', 'Transport', 'Utilities', 'Entertainment', 
-      'Shopping', 'Health', 'Education', 'Allowance', 'Salary', 'Other'
-    ]
+    required: true
   },
   note:     { type: String },
-  date:     { type: Date, default: Date.now }
+  date:     { type: Date, default: Date.now },
+  spendRating: { type: String, enum: ['w', 'regret', null], default: null }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Transaction', transactionSchema);
